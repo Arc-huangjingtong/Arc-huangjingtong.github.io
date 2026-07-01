@@ -10,7 +10,7 @@
 /node_modules/
 
 # 编辑器 / IDE
-.vscode/
+# .vscode/ 
 .idea/
 *.swp
 *.swo

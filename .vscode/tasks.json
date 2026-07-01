@@ -1,0 +1,113 @@
+{
+  // Hugo 站点快捷任务 —— 详见 https://gohugo.io/commands/
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Hugo: 本地预览 (dev server)",
+      "detail": "hugo server —— 实时热重载，含草稿文章",
+      "type": "shell",
+      "command": "hugo",
+      "args": [
+        "server",
+        "--buildDrafts",
+        "--bind=127.0.0.1",
+        "--port=1313",
+        "--baseURL=http://localhost:1313/"
+      ],
+      "isBackground": true,
+      "problemMatcher": [],
+      "group": { "kind": "build", "isDefault": true },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "clear": true
+      }
+    },
+    {
+      "label": "Hugo: 构建生产版本",
+      "detail": "hugo --minify —— 输出到 public/，部署用",
+      "type": "shell",
+      "command": "hugo",
+      "args": [
+        "--minify"
+      ],
+      "isBackground": false,
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "clear": true
+      }
+    },
+    {
+      "label": "Hugo: 构建并清理旧产物",
+      "detail": "删除 public/ 后重新构建 —— 避免缓存残留",
+      "type": "shell",
+      "command": "rm -rf public && hugo --minify",
+      "args": [],
+      "isBackground": false,
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "clear": true
+      }
+    },
+    {
+      "label": "Hugo: 新建文章",
+      "detail": "在 content/posts/ 下创建新 Markdown 文章",
+      "type": "shell",
+      "command": "hugo",
+      "args": [
+        "new",
+        "posts/${input:postName}.md"
+      ],
+      "inputs": [
+        {
+          "id": "postName",
+          "description": "文章文件名(英文短横线，如 my-first-post)",
+          "type": "promptString",
+          "default": "new-post"
+        }
+      ],
+      "isBackground": false,
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "clear": true
+      }
+    },
+    {
+      "label": "Hugo: 本地预览 (生产配置)",
+      "detail": "hugo server --minify -e production —— 模拟线上环境预览",
+      "type": "shell",
+      "command": "hugo",
+      "args": [
+        "server",
+        "--minify",
+        "--environment=production",
+        "--bind=127.0.0.1",
+        "--port=1313",
+        "--baseURL=http://localhost:1313/"
+      ],
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "clear": true
+      }
+    }
+  ]
+}
