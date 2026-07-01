@@ -29,6 +29,18 @@
   pageRef = "posts"
   weight = 20
 
+[[main]]
+  name = "分类"
+  pageRef = "categories"
+  weight = 20
+
+[[main]]
+  name = "标签"
+  pageRef = "tags"
+  weight = 30
+
+  #子导航菜单
+
 [[subnavigation]]
   name = "一个有趣的话题"
   pageRef = "tags/interesting-topic"
@@ -39,16 +51,6 @@
   pre = "github"
   pageRef = "categories/awesome"
   weight = 20
-
-[[main]]
-  name = "分类"
-  pageRef = "categories"
-  weight = 20
-
-[[main]]
-  name = "标签"
-  pageRef = "tags"
-  weight = 30
 
 
 # -- 页脚菜单 --

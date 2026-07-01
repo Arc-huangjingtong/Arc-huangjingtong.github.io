@@ -1,11 +1,11 @@
 disabled = false
 locale = "zh-cn"
-label = "简体中文"
+label = "中文"
 weight = 2
-title = "Arc的个人博客"
+title = "Arc's Blog"
 
 [params]
-  displayName = "简体中文"
+  displayName = "中文"
   isoCode = "zh-cn"
   rtl = false
   dateFormat = "2006-01-02"
@@ -15,9 +15,9 @@ title = "Arc的个人博客"
   copyright = "版权所有"
 
  [params.author]
-   name = "你的名字"
+   name = "Arc"
    email = "youremail@example.com"
-   image = "img/blowfish_logo.png"
+   image = "img/head.png"
    imageQuality = 96
    headline = "一句话简介"
    bio = "关于你的简介"
