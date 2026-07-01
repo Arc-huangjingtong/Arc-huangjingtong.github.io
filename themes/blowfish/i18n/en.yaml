@@ -25,6 +25,8 @@ article:
   part: "Part"
   this_article: "This Article"
   related_articles: "Related"
+  reply_by_email: "Reply by Email"
+  reply_to: "Reply to {{ .Title }}"
   zen_mode_title:
     enable: "Enable zen mode"
     disable: "Disable zen mode"
@@ -32,7 +34,7 @@ article:
 a11y:
   title: "Accessibility settings"
   disable_blur: "Disable blur"
-  disable_images: "Disable images"
+  disable_images: "Disable background image"
   show_link_underline: "Show link underline"
   font_size: "Font size"
 
@@ -84,3 +86,20 @@ shortcode:
 
 recent:
   show_more: "Show More"
+
+admonition:
+  abstract: "Abstract"
+  bug: "Bug"
+  caution: "Caution"
+  danger: "Danger"
+  example: "Example"
+  failure: "Failure"
+  important: "Important"
+  info: "Info"
+  note: "Note"
+  question: "Question"
+  quote: "Quote"
+  success: "Success"
+  tip: "Tip"
+  todo: "Todo"
+  warning: "Warning"

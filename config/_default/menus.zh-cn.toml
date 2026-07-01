@@ -1,0 +1,66 @@
+# -- 主菜单 --
+# 主菜单显示在页面顶部的页眉。
+# 可用参数：name、pageRef、page、url、title、weight。
+#
+# 最简菜单配置：
+#   name = 菜单项显示名称
+#   pageRef = 页面或栏目标识
+#
+# 默认菜单按字母顺序排列，可用 weight 覆盖（按 weight 从小到大）。
+
+[[main]]
+  name = "博客"
+  pageRef = "posts"
+  weight = 10
+
+[[main]]
+  name = "父级"
+  weight = 20
+
+[[main]]
+  name = "子菜单示例 1"
+  parent = "父级"
+  pageRef = "posts"
+  weight = 20
+
+[[main]]
+  name = "子菜单示例 2"
+  parent = "父级"
+  pageRef = "posts"
+  weight = 20
+
+[[subnavigation]]
+  name = "一个有趣的话题"
+  pageRef = "tags/interesting-topic"
+  weight = 10
+
+[[subnavigation]]
+  name = "我的精彩分类"
+  pre = "github"
+  pageRef = "categories/awesome"
+  weight = 20
+
+[[main]]
+  name = "分类"
+  pageRef = "categories"
+  weight = 20
+
+[[main]]
+  name = "标签"
+  pageRef = "tags"
+  weight = 30
+
+
+# -- 页脚菜单 --
+# 页脚菜单显示在页面底部、版权声明之前。配置方式同上。
+
+
+ [[footer]]
+   name = "标签"
+   pageRef = "tags"
+   weight = 10
+
+ [[footer]]
+   name = "分类"
+   pageRef = "categories"
+   weight = 20

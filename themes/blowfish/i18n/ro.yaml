@@ -19,6 +19,8 @@ article:
   part: "Part"
   this_article: "This Article"
   related_articles: "Related"
+  reply_by_email: "Răspunde prin email"
+  reply_to: "Răspuns la {{ .Title }}"
 
 a11y:
   title: "Setări de accesibilitate"

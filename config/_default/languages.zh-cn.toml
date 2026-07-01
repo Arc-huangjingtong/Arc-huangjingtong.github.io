@@ -1,0 +1,26 @@
+disabled = false
+locale = "zh-cn"
+label = "简体中文"
+weight = 2
+title = "Arc的个人博客"
+
+[params]
+  displayName = "简体中文"
+  isoCode = "zh-cn"
+  rtl = false
+  dateFormat = "2006-01-02"
+  logo = "img/logo.png"
+  secondaryLogo = "img/secondary-logo.png"
+  description = "网站描述"
+  copyright = "版权所有"
+
+ [params.author]
+   name = "你的名字"
+   email = "youremail@example.com"
+   image = "img/blowfish_logo.png"
+   imageQuality = 96
+   headline = "一句话简介"
+   bio = "关于你的简介"
+   links = [
+     { github = "https://github.com/username" },
+   ]

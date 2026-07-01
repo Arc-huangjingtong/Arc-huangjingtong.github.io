@@ -1,2 +1,25 @@
-/.idea
-/public
+# Hugo build output
+/public/
+/resources/_gen/
+.hugo_build.lock
+
+# Hugo 本地配置（含密钥/部署配置，按需保留）
+# /config/_local/
+
+# 依赖管理
+/node_modules/
+
+# 编辑器 / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统
+.DS_Store
+Thumbs.db
+
+# 日志与临时文件
+*.log
+.tmp/
