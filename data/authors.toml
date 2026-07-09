@@ -1,0 +1,11 @@
+# 作者数据 —— 用于文章底部作者卡片 (author-extra) 及作者分类页
+# 字段：name / image / bio / social （详见 https://blowfish.page/docs/multi-author/）
+# 新增作者时，在下方新增一个 [作者key] 分区即可，key 需与文章 front matter 中 authors 的值一致。
+
+[arc]
+  name = "Arc"
+  image = "img/head.png"
+  bio = "Arc 是一名开发者，喜欢折腾静态站点生成器、写博客记录学习笔记。"
+  social = [
+    { github = "https://github.com/username" },
+  ]
