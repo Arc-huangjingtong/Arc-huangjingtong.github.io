@@ -87,7 +87,13 @@
         .hero-bg {
             position: absolute;
             inset: 0;
-            background: url('images/photo1.jpg') center/cover no-repeat;
+            background-image: image-set(
+                url('images/photo1.webp') type('image/webp'),
+                url('images/photo1.jpg') type('image/jpeg')
+            );
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             transform: scale(1.05);
             animation: heroZoom 8s ease-out forwards;
         }
@@ -984,14 +990,23 @@
             <div class="en">our moments</div>
         </div>
         <div class="gallery-grid reveal">
-            <div class="gallery-item tall" data-src="images/photo2.jpg">
-                <img src="images/photo2.jpg" alt="婚纱照" style="aspect-ratio: 3/4;">
+            <div class="gallery-item tall" data-src="images/photo2.webp">
+                <picture>
+                    <source srcset="images/photo2.webp" type="image/webp">
+                    <img src="images/photo2.jpg" alt="婚纱照" style="aspect-ratio: 3/4;" loading="lazy" decoding="async">
+                </picture>
             </div>
-            <div class="gallery-item" data-src="images/photo3.jpg">
-                <img src="images/photo3.jpg" alt="婚纱照" style="aspect-ratio: 3/4;">
+            <div class="gallery-item" data-src="images/photo3.webp">
+                <picture>
+                    <source srcset="images/photo3.webp" type="image/webp">
+                    <img src="images/photo3.jpg" alt="婚纱照" style="aspect-ratio: 3/4;" loading="lazy" decoding="async">
+                </picture>
             </div>
-            <div class="gallery-item" data-src="images/photo4.jpg">
-                <img src="images/photo4.jpg" alt="婚纱照" style="aspect-ratio: 3/4;">
+            <div class="gallery-item" data-src="images/photo4.webp">
+                <picture>
+                    <source srcset="images/photo4.webp" type="image/webp">
+                    <img src="images/photo4.jpg" alt="婚纱照" style="aspect-ratio: 3/4;" loading="lazy" decoding="async">
+                </picture>
             </div>
         </div>
     </section>
