@@ -664,14 +664,14 @@
                     window.open(baiduWebUrl, '_blank', 'noopener');
                     return;
                 }
-                // 移动端:尝试唤起百度地图 App
+                // 移动端:用隐藏 a 标签模拟点击唤起百度地图 App(比 location.href 更可靠)
                 const startTime = Date.now();
                 const timer = setTimeout(function () {
-                    // 2秒后仍在页面说明未唤起 App,打开网页版
-                    if (!document.hidden && Date.now() - startTime < 2500) {
+                    // 2.5秒后仍在页面说明未唤起 App,打开网页版
+                    if (!document.hidden && Date.now() - startTime < 3000) {
                         window.open(baiduWebUrl, '_blank', 'noopener');
                     }
-                }, 2000);
+                }, 2500);
                 // 页面隐藏(唤起成功)时清除定时器
                 const onVisibility = function () {
                     if (document.hidden) {
@@ -680,8 +680,15 @@
                     }
                 };
                 document.addEventListener('visibilitychange', onVisibility);
-                // 唤起 App
-                window.location.href = baiduSchemeUrl;
+                // 用 a 标签模拟点击唤起 App
+                const a = document.createElement('a');
+                a.href = baiduSchemeUrl;
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(function () {
+                    if (a.parentNode) document.body.removeChild(a);
+                }, 1000);
             }
 
             // 打开/关闭选择面板
