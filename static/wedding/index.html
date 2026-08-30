@@ -643,13 +643,20 @@
                     + encodeURIComponent(venueName + ',' + city)
             };
 
-            // 百度地图:移动端优先唤起 App,失败则 fallback 网页版
-            const baiduWebUrl = 'https://map.baidu.com/search/'
-                + encodeURIComponent(venueName)
-                + '@' + encodeURIComponent(city);
-            const baiduSchemeUrl = 'baidumap://map/place/search?query='
-                + encodeURIComponent(venueName)
-                + '&region=' + encodeURIComponent(city);
+            // 百度地图:移动端优先唤起 App 并直接标注地点,失败则 fallback 网页版
+            // 百度坐标(bd09ll): 117.200267, 34.206132
+            const baiduLat = '34.206132';
+            const baiduLng = '117.200267';
+            const baiduWebUrl = 'https://api.map.baidu.com/marker?location='
+                + baiduLat + ',' + baiduLng
+                + '&title=' + encodeURIComponent(venueName)
+                + '&content=' + encodeURIComponent(address)
+                + '&output=html&src=wedding-invitation';
+            const baiduSchemeUrl = 'baidumap://map/marker?location='
+                + baiduLat + ',' + baiduLng
+                + '&title=' + encodeURIComponent(venueName)
+                + '&content=' + encodeURIComponent(address)
+                + '&src=wedding-invitation';
 
             function openBaiduMap() {
                 const isMobile = /Android|iPhone|iPad|iPod|Mobile|HarmonyOS/i.test(navigator.userAgent);
