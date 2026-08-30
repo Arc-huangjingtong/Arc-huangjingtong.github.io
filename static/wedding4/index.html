@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<script>document.documentElement.classList.add('js')</script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>黄竟通 ✦ 姜雪澳 · 我们的婚礼</title>
+<meta name="description" content="2026年10月6日 · 安徽芜湖无为 · 一场星空下的婚礼邀约。黄竟通与姜雪澳诚邀您共赴星河。" />
+<meta name="theme-color" content="#070a18" />
+<meta property="og:title" content="黄竟通 ✦ 姜雪澳 · 我们的婚礼" />
+<meta property="og:description" content="2026年10月6日 · 安徽芜湖无为 · 共赴星河" />
+<meta property="og:image" content="https://arc-huangjingtong.com/wedding4/images/og.jpg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Space+Mono:wght@400;700&family=Noto+Serif+SC:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+<canvas id="skymap" aria-hidden="true"></canvas>
+<div class="sky-fallback" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="brand" href="./">HUANG <span class="brand-star">✦</span> JIANG</a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#twelve">星辰寄语</a>
+    <a href="#reading">我们的故事</a>
+    <a class="nav-guide" href="#wedding-info">婚礼详情</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <p class="eyebrow hero-el">Save the Date · 2026.10.06</p>
+      <h1 id="hero-title" class="hero-title hero-el">
+        <span class="line"><span>HUANG</span></span>
+        <span class="line"><span>&amp;</span></span>
+        <span class="line"><span>JIANG</span></span>
+      </h1>
+      <p class="hero-names hero-el">黄竟通 <span class="names-star">✦</span> 姜雪澳</p>
+      <p class="tagline hero-el"><em>共赴星河</em></p>
+      <p class="hero-sub hero-el">在亿万颗星辰中，我们找到了彼此。
+        愿以余生为注，共赴这场星河之约。移动光标，点亮属于我们的星座。</p>
+
+      <div class="readout hero-el" role="group" aria-label="婚礼倒计时">
+        <p class="readout-title">Countdown to Forever</p>
+        <dl class="readout-grid">
+          <div><dt>Days</dt><dd id="cd-days">--</dd></div>
+          <div><dt>Hours</dt><dd id="cd-hours">--</dd></div>
+          <div><dt>Minutes</dt><dd id="cd-mins">--</dd></div>
+          <div><dt>Seconds</dt><dd id="cd-secs">--</dd></div>
+        </dl>
+      </div>
+
+      <div class="hero-legend hero-el">
+        <span class="hl-label">点亮星座</span>
+        <div class="hl-glyphs" id="hero-legend" role="group" aria-label="点亮一个星座"></div>
+      </div>
+    </div>
+    <div class="scroll-cue hero-el" aria-hidden="true"><span></span>星辰寄语</div>
+  </section>
+
+  <section class="band" aria-hidden="true">
+    <div class="band-track" id="band-track"></div>
+  </section>
+
+  <section id="twelve" class="twelve">
+    <div class="twelve-bg" aria-hidden="true"></div>
+    <div class="section-head">
+      <p class="index reveal">I — XII</p>
+      <h2 class="reveal">星辰寄语</h2>
+      <p class="section-lede reveal">十二星座，十二句情话。
+        悬停或点击一个星座，让它在夜空中亮起，读一句我们想对你说的话。</p>
+    </div>
+    <div class="sign-grid" id="sign-grid"></div>
+  </section>
+
+  <section id="reading" class="reading">
+    <div class="reading-inner">
+      <div class="reading-bg" aria-hidden="true"></div>
+      <p class="eyebrow reveal">Our Story</p>
+      <h2 class="reveal">在遇见你之前，我从未想过结婚。</h2>
+      <p class="reading-text reveal">那是一个普通的日子，阳光正好，风也温柔。
+        你走进我的生命，像一颗星落入夜空，从此我的世界有了光。
+        我们一起走过春夏秋冬，一起看过无数次日落，一起在平凡的日子里寻找不平凡的意义。</p>
+      <blockquote class="pullquote reveal">
+        <p>遇见你之后，我想把余生的每一天，都过成情人节。</p>
+      </blockquote>
+      <p class="reading-text reveal">爱情不是轰轰烈烈的誓言，而是平平淡淡的陪伴。
+        是清晨的一杯温水，是深夜的一盏灯，是无论走多远，回头时你都在。
+        今天，我们站在星空下，邀请你见证我们的承诺——
+        从今往后，无论贫富、无论健康疾病，我们都将携手同行，直到永远。</p>
+      <p class="reading-sign reveal">— 竟通 &amp; 雪澳</p>
+    </div>
+  </section>
+
+  <section id="wedding-info" class="ephemeris" aria-label="婚礼详情">
+    <div class="eph-grid">
+      <article class="eph-card reveal">
+        <p class="eph-k">01</p>
+        <h3>日期 · Date</h3>
+        <p>2026年10月6日（周二）<br>农历八月廿六<br>中午 11:28 开席</p>
+      </article>
+      <article class="eph-card reveal">
+        <p class="eph-k">02</p>
+        <h3>地点 · Venue</h3>
+        <p>东方盛宴（东方荟店）<br>安徽省芜湖市无为市<br>敬备喜酌 · 恭候光临</p>
+        <button class="nav-btn" id="nav-btn" type="button" aria-label="导航到婚礼现场">
+          <span class="nav-icon">✦</span>
+          <span>导航赴宴 · Navigate</span>
+          <span class="nav-arrow">→</span>
+        </button>
+      </article>
+      <article class="eph-card reveal">
+        <p class="eph-k">03</p>
+        <h3>寄语 · Blessing</h3>
+        <p>感谢您一路以来的陪伴与祝福。<br>您的到来，将是我们婚礼上最珍贵的礼物。<br>愿我们都能在爱里，成为更好的人。</p>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-top">
+    <p class="footer-brand">HUANG <span class="brand-star">✦</span> JIANG</p>
+    <p class="footer-tag">黄竟通 &amp; 姜雪澳 · 2026.10.06 · 共赴星河</p>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 黄竟通 &amp; 姜雪澳 · 星空下的约定</span>
+    <span>Made with <span style="color:#e3bd77">✦</span> for our forever</span>
+  </div>
+</footer>
+
+<!-- 导航弹出菜单 -->
+<div class="nav-mask" id="nav-mask" aria-hidden="true"></div>
+<div class="nav-sheet" id="nav-sheet" role="dialog" aria-label="选择导航方式">
+  <div class="nav-sheet-handle"></div>
+  <p class="nav-sheet-title">选择导航方式</p>
+  <p class="nav-sheet-sub">东方盛宴（东方荟店）· 安徽省芜湖市无为市</p>
+  <div class="nav-options">
+    <button class="nav-opt" data-map="amap" type="button">
+      <span class="nav-opt-icon" style="--c:#00B2FF">高</span>
+      <span class="nav-opt-text">
+        <strong>高德地图</strong>
+        <small>推荐使用</small>
+      </span>
+    </button>
+    <button class="nav-opt" data-map="baidu" type="button">
+      <span class="nav-opt-icon" style="--c:#3385FF">百</span>
+      <span class="nav-opt-text">
+        <strong>百度地图</strong>
+        <small>精准定位</small>
+      </span>
+    </button>
+    <button class="nav-opt" data-map="tencent" type="button">
+      <span class="nav-opt-icon" style="--c:#12B7F5">腾</span>
+      <span class="nav-opt-text">
+        <strong>腾讯地图</strong>
+        <small>微信直达</small>
+      </span>
+    </button>
+    <button class="nav-opt" data-map="apple" type="button">
+      <span class="nav-opt-icon" style="--c:#8E8E93">苹</span>
+      <span class="nav-opt-text">
+        <strong>苹果地图</strong>
+        <small>iOS 原生</small>
+      </span>
+    </button>
+  </div>
+  <button class="nav-copy" id="copy-btn" type="button">
+    <span>📋</span> 复制地址
+  </button>
+  <button class="nav-cancel" id="nav-cancel" type="button">取消</button>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<!-- 交互特效层 -->
+<div class="fx-layer" id="fx-layer" aria-hidden="true">
+  <div class="fx-charge" id="fx-charge"></div>
+  <div class="fx-rings" id="fx-rings"></div>
+  <div class="fx-particles" id="fx-particles"></div>
+  <div class="fx-edge" id="fx-edge"></div>
+</div>
+
+<script src="./main.js"></script>
+</body>
+</html>
