@@ -24,6 +24,13 @@
   --pink-soft:rgba(232,160,184,.15);
 }
 *{box-sizing:border-box;margin:0;padding:0}
+html,body{
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
   background:var(--bg);
@@ -89,7 +96,17 @@ img{max-width:100%}
 .nav-guide{color:var(--gold)!important;border:1px solid var(--line);
   border-radius:40px;padding:8px 16px;transition:background .3s,color .3s,border-color .3s}
 .nav-guide:hover{background:var(--gold);color:#0a0d1c!important;border-color:var(--gold)}
-@media(max-width:640px){.nav-links a:first-child{display:none}}
+@media(max-width:768px){
+  .nav{padding:14px 16px}
+  .brand{font-size:1rem;letter-spacing:.3em}
+  .nav-links{gap:12px;font-size:.65rem;letter-spacing:.15em}
+  .nav-guide{padding:6px 12px}
+}
+@media(max-width:560px){
+  .brand{font-size:.85rem;letter-spacing:.22em}
+  .nav-links a:not(.nav-guide){display:none}
+  .nav-guide{font-size:.7rem;padding:7px 14px}
+}
 
 /* ---------- hero ---------- */
 .hero{
@@ -302,9 +319,18 @@ h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.4rem,6.5vw,5.2rem)
 .eph-card p{font-family:var(--serif-cn);color:var(--dim);font-size:.98rem;line-height:1.8;max-width:42ch}
 
 /* ---------- footer ---------- */
-.footer{padding:clamp(60px,9vh,110px) clamp(18px,5vw,54px) 44px;
+.footer{position:relative;overflow:hidden;
+  padding:clamp(60px,9vh,110px) clamp(18px,5vw,54px) 44px;
   border-top:1px solid var(--line);
   background:linear-gradient(180deg,rgba(6,9,20,.2),rgba(4,6,15,.85))}
+.footer-bg{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:url('images/cat3.webp') center/contain no-repeat;
+  opacity:0;
+  -webkit-mask:radial-gradient(circle 0px at 50% 50%,#000 0%,rgba(0,0,0,0) 100%);
+  mask:radial-gradient(circle 0px at 50% 50%,#000 0%,rgba(0,0,0,0) 100%);
+  filter:saturate(.9) brightness(.9);
+  will-change:mask,-webkit-mask,opacity}
+.footer > *:not(.footer-bg){position:relative;z-index:1}
 .footer-top{max-width:var(--max);margin:0 auto;display:flex;justify-content:space-between;
   align-items:baseline;gap:20px;flex-wrap:wrap}
 .footer-brand{font-family:var(--serif);font-size:clamp(2rem,7vw,4.4rem);font-weight:500;

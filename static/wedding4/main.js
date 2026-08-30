@@ -508,6 +508,7 @@
     { el: document.querySelector('.hero-bg'), container: document.querySelector('.hero') },
     { el: document.querySelector('.twelve-bg'), container: document.querySelector('.twelve') },
     { el: document.querySelector('.reading-bg'), container: document.querySelector('.reading-inner') },
+    { el: document.querySelector('.footer-bg'), container: document.querySelector('.footer') },
   ].filter(p => p.el && p.container);
 
   const fxLayer = document.getElementById('fx-layer');
@@ -572,12 +573,18 @@
         animationId = null;
         lastTime = 0;
         if (targetRadius === 0) {
+          currentRadius = 0;
           photoBgs.forEach(({ el }) => {
             el.style.webkitMaskImage = '';
             el.style.maskImage = '';
             el.style.opacity = '';
           });
-          if (fxEdge) fxEdge.classList.remove('active');
+          if (fxEdge) {
+            fxEdge.classList.remove('active');
+            fxEdge.style.width = '0px';
+            fxEdge.style.height = '0px';
+            fxEdge.style.transform = 'translate(-50%,-50%) scale(0)';
+          }
         }
       }
     };
