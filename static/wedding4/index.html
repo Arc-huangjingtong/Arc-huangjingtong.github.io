@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>黄竟通 ❤️ 姜雪澳 · 我们的婚礼</title>
+    <meta name="description" content="2026年10月6日 · 安徽省芜湖市无为市 · 东方盛宴（东方荟店）">
+    <meta name="wx.share.title" content="黄竟通 ❤️ 姜雪澳 · 我们的婚礼">
+    <meta name="wx.share.desc" content="2026年10月6日(周二)11:28 · 安徽芜湖无为东方盛宴 · 一场3D婚礼邀约">
+    <meta name="wx.share.img" content="https://arc-huangjingtong.com/wedding4/images/photo1.jpg">
+    <meta property="og:title" content="黄竟通 ❤️ 姜雪澳 · 我们的婚礼">
+    <meta property="og:description" content="2026年10月6日(周二)11:28 · 安徽芜湖无为东方盛宴">
+    <meta property="og:image" content="https://arc-huangjingtong.com/wedding4/images/photo1.jpg">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://arc-huangjingtong.com/wedding4/">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💗</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            width: 100%; height: 100%;
+            overflow: hidden;
+            background: #0a0a14;
+            font-family: "Playfair Display", "Cormorant Garamond", "Songti SC", Georgia, serif;
+            -webkit-font-smoothing: antialiased;
+            touch-action: none;
+        }
+        #canvas-container {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+        }
+
+        /* ===== 加载界面 ===== */
+        #loader {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #0a0a14;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .loader-heart { font-size: 48px; animation: heartbeat 1.2s ease-in-out infinite; }
+        .loader-text {
+            margin-top: 20px;
+            font-family: "Great Vibes", cursive;
+            font-size: 26px; color: #e8a0b8;
+        }
+        .loader-sub {
+            margin-top: 8px;
+            font-family: "Cormorant Garamond", serif;
+            font-size: 11px; letter-spacing: 0.4em;
+            color: #a06880; text-transform: uppercase;
+        }
+        .loader-progress {
+            margin-top: 18px;
+            width: 180px; height: 3px;
+            background: rgba(232,160,184,0.15);
+            border-radius: 99px;
+            overflow: hidden;
+        }
+        .loader-progress-bar {
+            height: 100%; width: 0%;
+            background: linear-gradient(90deg, #e8a0b8, #d4608a);
+            border-radius: 99px;
+            transition: width 0.3s ease;
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.12); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.08); }
+        }
+
+        /* ===== UI 叠加层 ===== */
+        .ui-overlay {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 10;
+            pointer-events: none;
+            display: flex; flex-direction: column;
+            align-items: center;
+        }
+        .top-title {
+            margin-top: 36px;
+            text-align: center;
+            animation: fadeDown 1.2s ease 0.3s both;
+        }
+        .top-title .eyebrow {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 10px; letter-spacing: 0.5em;
+            color: #e8a0b8; text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .top-title .names {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(26px, 5.5vw, 40px);
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 0.08em;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.6);
+        }
+        .top-title .names .amp {
+            font-family: "Great Vibes", cursive;
+            font-size: 0.8em; color: #e8a0b8;
+            margin: 0 6px; vertical-align: middle;
+        }
+        .top-title .date {
+            margin-top: 8px;
+            font-family: "Cormorant Garamond", serif;
+            font-size: 13px; letter-spacing: 0.25em;
+            color: #d0a8b8;
+        }
+
+        .bottom-info {
+            position: absolute;
+            bottom: 92px; left: 0; right: 0;
+            text-align: center;
+            animation: fadeUp 1.2s ease 0.6s both;
+        }
+        .bottom-info .venue {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 12px; letter-spacing: 0.15em;
+            color: #c8a0b0;
+            text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+        }
+        .bottom-info .venue strong { color: #e8a0b8; font-weight: 600; }
+        .bottom-info .hint {
+            margin-top: 8px;
+            font-size: 10px; color: #987888;
+            letter-spacing: 0.1em;
+        }
+
+        /* ===== 按钮组 ===== */
+        .btn-group {
+            position: fixed;
+            bottom: 24px; left: 0; right: 0;
+            display: flex; justify-content: center;
+            gap: 12px; z-index: 50;
+            pointer-events: auto;
+        }
+        .btn {
+            padding: 12px 24px;
+            border-radius: 999px;
+            border: none;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #e88aa8, #d4608a);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(212,96,138,0.4);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(212,96,138,0.5); }
+        .btn-secondary {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(10px);
+            color: #e8a0b8;
+            border: 1px solid rgba(232,160,184,0.3);
+        }
+        .btn-secondary:hover { transform: translateY(-2px); background: rgba(255,255,255,0.2); }
+
+        /* ===== 音乐按钮 ===== */
+        .music-btn {
+            position: fixed;
+            top: 20px; right: 20px;
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(232,160,184,0.3);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 100;
+            transition: transform 0.2s;
+            padding: 0; pointer-events: auto;
+        }
+        .music-btn:hover { transform: scale(1.1); }
+        .music-btn svg { width: 18px; height: 18px; fill: #e8a0b8; }
+        .music-btn .icon-pause { display: none; }
+        .music-btn.playing .icon-play { display: none; }
+        .music-btn.playing .icon-pause { display: block; }
+        .music-btn.playing { animation: musicSpin 4s linear infinite; }
+        @keyframes musicSpin { to { transform: rotate(360deg); } }
+
+        /* ===== 游戏 HUD ===== */
+        .game-hud {
+            position: fixed;
+            top: 80px; left: 0; right: 0;
+            display: flex; justify-content: center;
+            gap: 30px; z-index: 60;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .game-hud.show { opacity: 1; }
+        .hud-item {
+            background: rgba(10,10,20,0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 999px;
+            padding: 8px 20px;
+            font-family: "Cormorant Garamond", serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: #e8a0b8;
+            border: 1px solid rgba(232,160,184,0.2);
+            min-width: 90px;
+            text-align: center;
+        }
+        .hud-item .label {
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            color: #a06880;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        /* ===== 游戏面板 ===== */
+        .game-panel {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 88%; max-width: 360px;
+            background: rgba(20,15,25,0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(232,160,184,0.3);
+            border-radius: 24px;
+            padding: 32px 28px;
+            z-index: 200;
+            text-align: center;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.4s, transform 0.4s, visibility 0.4s;
+            pointer-events: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .game-panel.show {
+            opacity: 1; visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .game-panel .emoji { font-size: 48px; margin-bottom: 12px; }
+        .game-panel h2 {
+            font-family: "Great Vibes", cursive;
+            font-size: 32px; color: #e8a0b8;
+            margin-bottom: 8px; font-weight: 400;
+        }
+        .game-panel p {
+            font-size: 14px; color: #c8a0b0;
+            line-height: 1.7; margin-bottom: 20px;
+        }
+        .game-panel .score-big {
+            font-family: "Playfair Display", serif;
+            font-size: 56px; font-weight: 700;
+            color: #e88aa8;
+            line-height: 1;
+            margin: 10px 0;
+        }
+        .game-panel .score-label {
+            font-size: 11px; letter-spacing: 0.3em;
+            color: #a06880; text-transform: uppercase;
+        }
+        .game-panel .verdict {
+            font-family: "Great Vibes", cursive;
+            font-size: 22px; color: #e8a0b8;
+            margin: 12px 0 20px;
+        }
+        .game-panel .panel-btns {
+            display: flex; gap: 10px; justify-content: center;
+        }
+
+        /* ===== 详情卡片 ===== */
+        .detail-card {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 88%; max-width: 360px;
+            background: rgba(20,15,25,0.96);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(232,160,184,0.25);
+            border-radius: 20px;
+            padding: 28px 24px;
+            z-index: 200;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+            pointer-events: auto;
+        }
+        .detail-card.show {
+            opacity: 1; visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .detail-card .close-btn {
+            position: absolute; top: 12px; right: 12px;
+            width: 30px; height: 30px; border-radius: 50%;
+            background: rgba(232,160,184,0.15); border: none;
+            color: #e8a0b8; font-size: 16px; cursor: pointer;
+        }
+        .detail-card h3 {
+            font-family: "Great Vibes", cursive;
+            font-size: 28px; color: #e8a0b8;
+            text-align: center; margin-bottom: 4px; font-weight: 400;
+        }
+        .detail-card .sub {
+            text-align: center; font-size: 11px;
+            letter-spacing: 0.3em; color: #a06880;
+            text-transform: uppercase; margin-bottom: 20px;
+        }
+        .detail-row {
+            display: flex; gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(232,160,184,0.12);
+        }
+        .detail-row:last-child { border-bottom: none; }
+        .detail-row .label {
+            flex: 0 0 44px;
+            font-size: 10px; letter-spacing: 0.15em;
+            color: #a06880; text-transform: uppercase;
+            padding-top: 3px;
+        }
+        .detail-row .value {
+            flex: 1; font-size: 14px;
+            color: #e0c8d0; line-height: 1.6;
+        }
+        .detail-row .value small {
+            display: block; font-size: 12px;
+            color: #987888; margin-top: 2px;
+        }
+        .detail-card .nav-btn {
+            width: 100%; margin-top: 16px;
+            padding: 12px; border-radius: 999px;
+            background: linear-gradient(135deg, #e88aa8, #d4608a);
+            border: none; color: #fff;
+            font-size: 13px; font-weight: 600;
+            letter-spacing: 0.1em; cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* ===== 得分飘字 ===== */
+        .score-popup {
+            position: fixed;
+            font-family: "Playfair Display", serif;
+            font-size: 24px; font-weight: 700;
+            color: #e88aa8;
+            text-shadow: 0 2px 10px rgba(232,138,168,0.5);
+            pointer-events: none;
+            z-index: 150;
+            animation: scoreFloat 0.8s ease-out forwards;
+        }
+        @keyframes scoreFloat {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-50px) scale(1.3); }
+        }
+        @keyframes fadeDown { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<div id="loader">
+    <div class="loader-heart">💗</div>
+    <div class="loader-text">Loading Our Love</div>
+    <div class="loader-sub">Huang &amp; Jiang</div>
+    <div class="loader-progress"><div class="loader-progress-bar" id="loader-bar"></div></div>
+</div>
+
+<div id="canvas-container"></div>
+
+<div class="ui-overlay">
+    <div class="top-title">
+        <div class="eyebrow">Save the Date</div>
+        <div class="names">黄竟通 <span class="amp">&amp;</span> 姜雪澳</div>
+        <div class="date">2026 . 10 . 06 &nbsp;·&nbsp; 安徽 · 芜湖</div>
+    </div>
+    <div class="bottom-info">
+        <div class="venue"><strong>东方盛宴（东方荟店）</strong> · 安徽省芜湖市无为市</div>
+        <div class="hint">↻ 拖拽旋转视角 · 滚轮缩放</div>
+    </div>
+</div>
+
+<audio id="bgm" src="bgm.mp3" loop preload="auto"></audio>
+<button class="music-btn" id="music-btn" type="button">
+    <svg class="icon-play" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+    <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+</button>
+
+<div class="game-hud" id="game-hud">
+    <div class="hud-item"><span class="label">Score</span><span id="hud-score">0</span></div>
+    <div class="hud-item"><span class="label">Time</span><span id="hud-time">30</span></div>
+</div>
+
+<div class="btn-group" id="btn-group">
+    <button class="btn btn-primary" id="game-btn" type="button">🎮 接花球</button>
+    <button class="btn btn-secondary" id="info-btn" type="button">💌 婚礼详情</button>
+</div>
+
+<div class="game-panel" id="start-panel">
+    <div class="emoji">💐</div>
+    <h2>Catch the Bouquet</h2>
+    <p>左右移动花篮，接住从天而降的花球！<br>30 秒内你能接住多少个？</p>
+    <div class="panel-btns">
+        <button class="btn btn-primary" id="start-game-btn" type="button">开始游戏</button>
+        <button class="btn btn-secondary" id="cancel-game-btn" type="button">再看看</button>
+    </div>
+</div>
+
+<div class="game-panel" id="end-panel">
+    <div class="emoji" id="end-emoji">🎉</div>
+    <h2>Time's Up!</h2>
+    <div class="score-big" id="final-score">0</div>
+    <div class="score-label">Bouquets Caught</div>
+    <div class="verdict" id="verdict">完美！</div>
+    <div class="panel-btns">
+        <button class="btn btn-primary" id="retry-btn" type="button">再来一次</button>
+        <button class="btn btn-secondary" id="back-btn" type="button">返回场景</button>
+    </div>
+</div>
+
+<div class="detail-card" id="detail-card">
+    <button class="close-btn" id="close-detail" type="button">×</button>
+    <h3>Wedding Details</h3>
+    <div class="sub">诚邀莅临</div>
+    <div class="detail-row">
+        <div class="label">日期</div>
+        <div class="value">2026 年 10 月 6 日（周二）<small>农历八月廿六 · 11:28 开席</small></div>
+    </div>
+    <div class="detail-row">
+        <div class="label">地点</div>
+        <div class="value">东方盛宴（东方荟店）<small>安徽省芜湖市无为市</small></div>
+    </div>
+    <div class="detail-row">
+        <div class="label">席位</div>
+        <div class="value">敬备喜酌 · 恭候光临<small>携手共赴这场浪漫邀约</small></div>
+    </div>
+    <button class="nav-btn" id="nav-btn" type="button">打开地图导航</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/loaders/RGBELoader.js"></script>
+
+<script>
+(function () {
+    'use strict';
+
+    var loaderBar = document.getElementById('loader-bar');
+    var loadCount = 0;
+    var loadTotal = 3;
+    function tickLoad() {
+        loadCount++;
+        loaderBar.style.width = Math.min(100, (loadCount / loadTotal) * 100) + '%';
+        if (loadCount >= loadTotal) {
+            setTimeout(function () {
+                document.getElementById('loader').classList.add('hidden');
+            }, 400);
+        }
+    }
+
+    // ============ 场景 ============
+    var container = document.getElementById('canvas-container');
+    var scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0a0a14);
+    scene.fog = new THREE.Fog(0x0a0a14, 25, 60);
+
+    var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 200);
+    camera.position.set(14, 10, 18);
+
+    var renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.8;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    container.appendChild(renderer.domElement);
+
+    var controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.minDistance = 6;
+    controls.maxDistance = 45;
+    controls.maxPolarAngle = Math.PI * 0.85;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.5;
+    controls.target.set(0, 3, 0);
+
+    // ============ HDRI 环境 ============
+    var pmrem = new THREE.PMREMGenerator(renderer);
+    pmrem.compileEquirectangularShader();
+    new THREE.RGBELoader()
+        .setDataType(THREE.UnsignedByteType)
+        .load('hdri/studio.hdr', function (texture) {
+            var envMap = pmrem.fromEquirectangular(texture).texture;
+            scene.environment = envMap;
+            texture.dispose();
+            pmrem.dispose();
+            tickLoad();
+        }, undefined, function () { tickLoad(); });
+
+    // ============ 灯光 ============
+    scene.add(new THREE.AmbientLight(0xffffff, 1.0));
+    var dirLight = new THREE.DirectionalLight(0xfff0e0, 2.5);
+    dirLight.position.set(10, 15, 8);
+    dirLight.castShadow = true;
+    dirLight.shadow.mapSize.width = 2048;
+    dirLight.shadow.mapSize.height = 2048;
+    dirLight.shadow.camera.near = 0.5;
+    dirLight.shadow.camera.far = 50;
+    dirLight.shadow.camera.left = -15;
+    dirLight.shadow.camera.right = 15;
+    dirLight.shadow.camera.top = 15;
+    dirLight.shadow.camera.bottom = -15;
+    scene.add(dirLight);
+
+    var hemiLight = new THREE.HemisphereLight(0xffeedd, 0x553366, 0.8);
+    scene.add(hemiLight);
+
+    var pinkLight = new THREE.PointLight(0xff88aa, 3.0, 30);
+    pinkLight.position.set(-6, 6, 4);
+    scene.add(pinkLight);
+    var warmLight = new THREE.PointLight(0xffaa66, 2.0, 25);
+    warmLight.position.set(6, 5, -4);
+    scene.add(warmLight);
+    var fillLight = new THREE.PointLight(0xffccdd, 1.5, 20);
+    fillLight.position.set(0, 8, 8);
+    scene.add(fillLight);
+
+    // ============ 加载东京街景模型 ============
+    var tokyoModel = null;
+    console.log('GLTFLoader available:', typeof THREE.GLTFLoader);
+    var dracoLoader = new THREE.DRACOLoader();
+    dracoLoader.setDecoderPath('https://unpkg.com/three@0.128.0/examples/js/libs/draco/');
+    var gltfLoader = new THREE.GLTFLoader();
+    gltfLoader.setDRACOLoader(dracoLoader);
+    gltfLoader.load('models/tokyo.glb', function (gltf) {
+        console.log('Model loaded successfully!');
+        tokyoModel = gltf.scene;
+
+        // 计算边界并缩放定位
+        var box = new THREE.Box3().setFromObject(tokyoModel);
+        var size = box.getSize(new THREE.Vector3());
+        var center = box.getCenter(new THREE.Vector3());
+        console.log('Model size:', size.x, size.y, size.z, 'center:', center.x, center.y, center.z);
+        var maxDim = Math.max(size.x, size.y, size.z);
+        var scale = 14 / maxDim;
+        tokyoModel.scale.set(scale, scale, scale);
+        tokyoModel.position.sub(center.multiplyScalar(scale));
+        tokyoModel.position.y += 0;
+
+        // 开启阴影 + 强制双面渲染
+        tokyoModel.traverse(function (obj) {
+            if (obj.isMesh) {
+                obj.castShadow = true;
+                obj.receiveShadow = true;
+                if (obj.material) {
+                    if (Array.isArray(obj.material)) {
+                        obj.material.forEach(function (m) { m.side = THREE.DoubleSide; });
+                    } else {
+                        obj.material.side = THREE.DoubleSide;
+                    }
+                }
+            }
+        });
+
+        scene.add(tokyoModel);
+        window.__tokyo = tokyoModel;
+        console.log('Tokyo model added to scene, scale:', scale.toFixed(3));
+        tickLoad();
+    }, function (xhr) {
+        if (xhr.lengthComputable) {
+            console.log('Loading model:', (xhr.loaded / xhr.total * 100).toFixed(0) + '%');
+        }
+    }, function (error) {
+        console.error('Model load error:', error);
+        tickLoad();
+    });
+
+    // ============ 氛围粒子（花瓣+爱心） ============
+    function makeBlossomTexture() {
+        var c = document.createElement('canvas');
+        c.width = c.height = 64;
+        var ctx = c.getContext('2d');
+        ctx.translate(32, 32);
+        for (var i = 0; i < 5; i++) {
+            ctx.save();
+            ctx.rotate(i * 2 * Math.PI / 5);
+            ctx.beginPath();
+            ctx.ellipse(0, -13, 7, 12, 0, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255,180,200,0.9)';
+            ctx.fill();
+            ctx.restore();
+        }
+        ctx.beginPath();
+        ctx.arc(0, 0, 4, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(224,97,138,0.7)';
+        ctx.fill();
+        var tex = new THREE.CanvasTexture(c);
+        tex.encoding = THREE.sRGBEncoding;
+        return tex;
+    }
+    var blossomTex = makeBlossomTexture();
+
+    function heartShape() {
+        var s = new THREE.Shape();
+        var x = 0, y = 0;
+        s.moveTo(x + 0.5, y + 0.5);
+        s.bezierCurveTo(x + 0.5, y + 0.5, x + 0.4, y, x, y);
+        s.bezierCurveTo(x - 0.6, y, x - 0.6, y + 0.7, x - 0.6, y + 0.7);
+        s.bezierCurveTo(x - 0.6, y + 1.1, x - 0.3, y + 1.54, x + 0.5, y + 1.9);
+        s.bezierCurveTo(x + 1.2, y + 1.54, x + 1.6, y + 1.1, x + 1.6, y + 0.7);
+        s.bezierCurveTo(x + 1.6, y + 0.7, x + 1.6, y, x + 1.0, y);
+        s.bezierCurveTo(x + 0.7, y, x + 0.5, y + 0.5, x + 0.5, y + 0.5);
+        return s;
+    }
+    var heartGeo = new THREE.ShapeGeometry(heartShape());
+
+    // 花瓣雨
+    var petalCount = 70;
+    var petalGeo = new THREE.PlaneGeometry(0.13, 0.16);
+    var petals = [];
+    for (var i = 0; i < petalCount; i++) {
+        var m = new THREE.MeshBasicMaterial({
+            map: blossomTex,
+            transparent: true,
+            opacity: 0.7,
+            side: THREE.DoubleSide,
+            depthWrite: false
+        });
+        var p = new THREE.Mesh(petalGeo, m);
+        var col = new THREE.Color().setHSL(0.93 + Math.random() * 0.06, 0.6, 0.78);
+        p.material.color.copy(col);
+        p.position.set(
+            (Math.random() - 0.5) * 24,
+            Math.random() * 14 + 2,
+            (Math.random() - 0.5) * 18
+        );
+        p.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+        p.userData = {
+            fallSpeed: 0.012 + Math.random() * 0.02,
+            swaySpeed: 0.02 + Math.random() * 0.03,
+            swayOffset: Math.random() * Math.PI * 2,
+            rotSpeed: new THREE.Vector3(
+                (Math.random() - 0.5) * 0.05,
+                (Math.random() - 0.5) * 0.05,
+                (Math.random() - 0.5) * 0.05
+            )
+        };
+        petals.push(p);
+        scene.add(p);
+    }
+
+    // 爱心粒子
+    var hearts = [];
+    for (var i = 0; i < 12; i++) {
+        var hm = new THREE.MeshBasicMaterial({
+            color: [0xff6b8a, 0xff91a4, 0xffb6c1][Math.floor(Math.random() * 3)],
+            transparent: true,
+            opacity: 0.3 + Math.random() * 0.4,
+            side: THREE.DoubleSide,
+            depthWrite: false
+        });
+        var h = new THREE.Mesh(heartGeo, hm);
+        var s = 0.12 + Math.random() * 0.18;
+        h.scale.set(s, s, s);
+        h.position.set(
+            (Math.random() - 0.5) * 20,
+            Math.random() * 10 + 1,
+            (Math.random() - 0.5) * 14
+        );
+        h.userData = {
+            speed: 0.006 + Math.random() * 0.01,
+            sway: Math.random() * Math.PI * 2,
+            swaySpeed: 0.01 + Math.random() * 0.02
+        };
+        hearts.push(h);
+        scene.add(h);
+    }
+
+    // 爆发花瓣
+    var burstPetals = [];
+    function createBurst(x, y, z, count) {
+        for (var i = 0; i < count; i++) {
+            var m = new THREE.MeshBasicMaterial({
+                map: blossomTex,
+                transparent: true,
+                opacity: 0.9,
+                side: THREE.DoubleSide,
+                depthWrite: false
+            });
+            var p = new THREE.Mesh(petalGeo, m);
+            var col = new THREE.Color().setHSL(0.93 + Math.random() * 0.06, 0.7, 0.82);
+            p.material.color.copy(col);
+            p.position.set(x, y, z);
+            p.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+            var ang = Math.random() * Math.PI * 2;
+            var sp = 0.06 + Math.random() * 0.12;
+            p.userData = {
+                vx: Math.cos(ang) * sp,
+                vy: 0.06 + Math.random() * 0.1,
+                vz: Math.sin(ang) * sp,
+                life: 1,
+                decay: 0.008 + Math.random() * 0.008,
+                rotSpeed: new THREE.Vector3(
+                    (Math.random() - 0.5) * 0.12,
+                    (Math.random() - 0.5) * 0.12,
+                    (Math.random() - 0.5) * 0.12
+                )
+            };
+            burstPetals.push(p);
+            scene.add(p);
+        }
+    }
+
+    // ============ 游戏：花篮 ============
+    var basketGroup = new THREE.Group();
+    basketGroup.visible = false;
+    var basketMat = new THREE.MeshStandardMaterial({ color: 0xd4a574, roughness: 0.7 });
+    var basket = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.5, 0.5, 20), basketMat);
+    basket.position.y = 0;
+    basketGroup.add(basket);
+    var rim = new THREE.Mesh(new THREE.TorusGeometry(0.7, 0.06, 10, 24), basketMat);
+    rim.rotation.x = Math.PI / 2;
+    rim.position.y = 0.25;
+    basketGroup.add(rim);
+    var handle = new THREE.Mesh(new THREE.TorusGeometry(0.6, 0.04, 10, 24, Math.PI), basketMat);
+    handle.position.y = 0.25;
+    basketGroup.add(handle);
+    for (var i = 0; i < 5; i++) {
+        var fm = new THREE.Mesh(
+            new THREE.SphereGeometry(0.12, 10, 10),
+            new THREE.MeshStandardMaterial({
+                color: [0xff6b8a, 0xff91a4, 0xffd9a0, 0xffb6c1][i % 4],
+                roughness: 0.5
+            })
+        );
+        fm.position.set(
+            (Math.random() - 0.5) * 0.6,
+            0.4 + Math.random() * 0.2,
+            (Math.random() - 0.5) * 0.6
+        );
+        basketGroup.add(fm);
+    }
+    basketGroup.position.set(0, 0.5, 3);
+    scene.add(basketGroup);
+
+    // ============ 游戏：花球 ============
+    var bouquets = [];
+    var bouquetColors = [0xff6b8a, 0xff91a4, 0xffd9a0, 0xffb6c1, 0xff8fa3];
+    function createBouquet() {
+        var group = new THREE.Group();
+        var core = new THREE.Mesh(
+            new THREE.SphereGeometry(0.28, 20, 20),
+            new THREE.MeshStandardMaterial({
+                color: bouquetColors[Math.floor(Math.random() * bouquetColors.length)],
+                roughness: 0.4
+            })
+        );
+        group.add(core);
+        for (var i = 0; i < 5; i++) {
+            var sm = new THREE.SpriteMaterial({
+                map: blossomTex,
+                transparent: true,
+                depthWrite: false
+            });
+            var sp = new THREE.Sprite(sm);
+            sp.scale.set(0.4, 0.4, 1);
+            var th = Math.random() * Math.PI * 2;
+            var ph = Math.random() * Math.PI;
+            sp.position.set(
+                Math.sin(ph) * Math.cos(th) * 0.3,
+                Math.sin(ph) * Math.sin(th) * 0.3,
+                Math.cos(ph) * 0.3
+            );
+            group.add(sp);
+        }
+        var ribbon = new THREE.Mesh(
+            new THREE.ConeGeometry(0.08, 0.3, 6),
+            new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.4 })
+        );
+        ribbon.position.y = -0.35;
+        ribbon.rotation.x = Math.PI;
+        group.add(ribbon);
+
+        group.position.set(
+            (Math.random() - 0.5) * 12,
+            10,
+            2.5 + (Math.random() - 0.5) * 1
+        );
+        group.userData = {
+            fallSpeed: 0.04 + Math.random() * 0.03,
+            rotSpeed: new THREE.Vector3(
+                (Math.random() - 0.5) * 0.05,
+                (Math.random() - 0.5) * 0.05,
+                (Math.random() - 0.5) * 0.05
+            )
+        };
+        scene.add(group);
+        bouquets.push(group);
+    }
+
+    // ============ 游戏逻辑 ============
+    var score = 0;
+    var timeLeft = 30;
+    var gameTimer = null;
+    var spawnTimer = null;
+    var basketTargetX = 0;
+    var gameMode = false;
+
+    var hudScore = document.getElementById('hud-score');
+    var hudTime = document.getElementById('hud-time');
+    var gameHud = document.getElementById('game-hud');
+    var startPanel = document.getElementById('start-panel');
+    var endPanel = document.getElementById('end-panel');
+    var btnGroup = document.getElementById('btn-group');
+
+    function startGame() {
+        gameMode = true;
+        score = 0;
+        timeLeft = 30;
+        hudScore.textContent = '0';
+        hudTime.textContent = '30';
+        gameHud.classList.add('show');
+        btnGroup.style.opacity = '0';
+        btnGroup.style.pointerEvents = 'none';
+        startPanel.classList.remove('show');
+
+        basketGroup.visible = true;
+        basketGroup.position.x = 0;
+        basketTargetX = 0;
+
+        controls.autoRotate = false;
+        camera.position.set(0, 8, 16);
+        controls.target.set(0, 1, 3);
+
+        spawnTimer = setInterval(function () {
+            if (timeLeft > 0) createBouquet();
+        }, 800);
+        gameTimer = setInterval(function () {
+            timeLeft--;
+            hudTime.textContent = timeLeft;
+            if (timeLeft <= 0) endGame();
+        }, 1000);
+    }
+
+    function endGame() {
+        clearInterval(gameTimer);
+        clearInterval(spawnTimer);
+        gameMode = false;
+        bouquets.forEach(function (b) { scene.remove(b); });
+        bouquets.length = 0;
+        basketGroup.visible = false;
+
+        document.getElementById('final-score').textContent = score;
+        var verdict, emoji;
+        if (score >= 25) { verdict = '花神转世！太厉害了！'; emoji = '👑'; }
+        else if (score >= 18) { verdict = '完美！好运连连！'; emoji = '🎉'; }
+        else if (score >= 12) { verdict = '不错哦！幸福满满！'; emoji = '💐'; }
+        else if (score >= 6) { verdict = '还可以，再接再厉！'; emoji = '🌸'; }
+        else { verdict = '别灰心，好运在后头！'; emoji = '💪'; }
+        document.getElementById('verdict').textContent = verdict;
+        document.getElementById('end-emoji').textContent = emoji;
+        endPanel.classList.add('show');
+    }
+
+    function backToScene() {
+        clearInterval(gameTimer);
+        clearInterval(spawnTimer);
+        gameTimer = null;
+        spawnTimer = null;
+        gameMode = false;
+        bouquets.forEach(function (b) { scene.remove(b); });
+        bouquets.length = 0;
+        basketGroup.visible = false;
+
+        endPanel.classList.remove('show');
+        gameHud.classList.remove('show');
+        btnGroup.style.opacity = '1';
+        btnGroup.style.pointerEvents = 'auto';
+        controls.autoRotate = true;
+        camera.position.set(14, 10, 18);
+        controls.target.set(0, 3, 0);
+    }
+
+    function onPointerMove(event) {
+        if (!gameMode) return;
+        var touch = event.touches ? event.touches[0] : event;
+        var x = (touch.clientX / window.innerWidth) * 2 - 1;
+        basketTargetX = x * 7;
+    }
+    renderer.domElement.addEventListener('pointermove', onPointerMove);
+    renderer.domElement.addEventListener('touchmove', function (e) {
+        e.preventDefault();
+        onPointerMove(e);
+    }, { passive: false });
+
+    document.getElementById('game-btn').addEventListener('click', function () {
+        startPanel.classList.add('show');
+    });
+    document.getElementById('start-game-btn').addEventListener('click', startGame);
+    document.getElementById('cancel-game-btn').addEventListener('click', function () {
+        startPanel.classList.remove('show');
+    });
+    document.getElementById('retry-btn').addEventListener('click', function () {
+        endPanel.classList.remove('show');
+        startGame();
+    });
+    document.getElementById('back-btn').addEventListener('click', backToScene);
+
+    // ============ 详情卡片 ============
+    var detailCard = document.getElementById('detail-card');
+    document.getElementById('info-btn').addEventListener('click', function () {
+        detailCard.classList.add('show');
+    });
+    document.getElementById('close-detail').addEventListener('click', function () {
+        detailCard.classList.remove('show');
+    });
+    detailCard.addEventListener('click', function (e) {
+        if (e.target === detailCard) detailCard.classList.remove('show');
+    });
+    document.getElementById('nav-btn').addEventListener('click', function () {
+        var url = 'https://uri.amap.com/search?keyword=' + encodeURIComponent('东方盛宴(东方荟店)') + '&city=' + encodeURIComponent('芜湖');
+        window.open(url, '_blank', 'noopener');
+    });
+
+    // ============ 音乐 ============
+    var audio = document.getElementById('bgm');
+    var musicBtn = document.getElementById('music-btn');
+    var hasInteracted = false;
+    function tryPlay() {
+        var p = audio.play();
+        if (p && typeof p.then === 'function') {
+            p.then(function () { musicBtn.classList.add('playing'); }).catch(function () {});
+        }
+    }
+    musicBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (audio.paused) {
+            audio.play().then(function () { musicBtn.classList.add('playing'); }).catch(function () {});
+        } else {
+            audio.pause();
+            musicBtn.classList.remove('playing');
+        }
+    });
+    window.addEventListener('load', function () { setTimeout(tryPlay, 500); });
+    function onFirstInteract() {
+        if (hasInteracted) return;
+        hasInteracted = true;
+        if (audio.paused) tryPlay();
+        document.removeEventListener('click', onFirstInteract);
+        document.removeEventListener('touchstart', onFirstInteract);
+    }
+    document.addEventListener('click', onFirstInteract);
+    document.addEventListener('touchstart', onFirstInteract);
+
+    // ============ 得分飘字 ============
+    function showScorePopup(x, y, text) {
+        var popup = document.createElement('div');
+        popup.className = 'score-popup';
+        popup.textContent = text;
+        popup.style.left = x + 'px';
+        popup.style.top = y + 'px';
+        document.body.appendChild(popup);
+        setTimeout(function () { popup.remove(); }, 800);
+    }
+
+    // ============ 动画循环 ============
+    var clock = new THREE.Clock();
+    var time = 0;
+    var frameCount = 0;
+    var tickedFirstFrame = false;
+
+    function animate() {
+        requestAnimationFrame(animate);
+        var delta = clock.getDelta();
+        time += delta;
+        frameCount++;
+
+        // 花瓣雨
+        petals.forEach(function (p) {
+            p.position.y -= p.userData.fallSpeed;
+            p.userData.swayOffset += p.userData.swaySpeed;
+            p.position.x += Math.sin(p.userData.swayOffset) * 0.015;
+            p.rotation.x += p.userData.rotSpeed.x;
+            p.rotation.y += p.userData.rotSpeed.y;
+            p.rotation.z += p.userData.rotSpeed.z;
+            if (p.position.y < -1) {
+                p.position.y = 14;
+                p.position.x = (Math.random() - 0.5) * 24;
+                p.position.z = (Math.random() - 0.5) * 18;
+            }
+        });
+
+        // 爆发花瓣
+        for (var i = burstPetals.length - 1; i >= 0; i--) {
+            var bp = burstPetals[i];
+            bp.position.x += bp.userData.vx;
+            bp.position.y += bp.userData.vy;
+            bp.position.z += bp.userData.vz;
+            bp.userData.vy -= 0.003;
+            bp.rotation.x += bp.userData.rotSpeed.x;
+            bp.rotation.y += bp.userData.rotSpeed.y;
+            bp.rotation.z += bp.userData.rotSpeed.z;
+            bp.userData.life -= bp.userData.decay;
+            bp.material.opacity = bp.userData.life;
+            if (bp.userData.life <= 0) {
+                scene.remove(bp);
+                burstPetals.splice(i, 1);
+            }
+        }
+
+        // 爱心
+        hearts.forEach(function (h) {
+            h.position.y += h.userData.speed;
+            h.userData.sway += h.userData.swaySpeed;
+            h.position.x += Math.sin(h.userData.sway) * 0.01;
+            h.rotation.z = Math.sin(h.userData.sway) * 0.2;
+            if (h.position.y > 12) {
+                h.position.y = -1;
+                h.position.x = (Math.random() - 0.5) * 20;
+            }
+        });
+
+        // 灯光微动
+        pinkLight.position.x = Math.sin(time * 0.3) * 6;
+        pinkLight.position.z = Math.cos(time * 0.3) * 4;
+        warmLight.position.x = Math.cos(time * 0.25) * 5;
+        warmLight.position.z = Math.sin(time * 0.25) * 3;
+
+        // 游戏模式
+        if (gameMode) {
+            basketGroup.position.x += (basketTargetX - basketGroup.position.x) * 0.15;
+            basketGroup.position.x = Math.max(-6.5, Math.min(6.5, basketGroup.position.x));
+            for (var bi = bouquets.length - 1; bi >= 0; bi--) {
+                var bq = bouquets[bi];
+                bq.position.y -= bq.userData.fallSpeed;
+                bq.rotation.x += bq.userData.rotSpeed.x;
+                bq.rotation.y += bq.userData.rotSpeed.y;
+                bq.rotation.z += bq.userData.rotSpeed.z;
+                if (bq.position.y < 1.2 && bq.position.y > 0.2) {
+                    var dx = Math.abs(bq.position.x - basketGroup.position.x);
+                    var dz = Math.abs(bq.position.z - basketGroup.position.z);
+                    if (dx < 0.9 && dz < 0.9) {
+                        score++;
+                        hudScore.textContent = score;
+                        var sp = bq.position.clone().project(camera);
+                        var sx = (sp.x * 0.5 + 0.5) * window.innerWidth;
+                        var sy = (-sp.y * 0.5 + 0.5) * window.innerHeight;
+                        showScorePopup(sx, sy, '+1 💐');
+                        createBurst(bq.position.x, bq.position.y, bq.position.z, 10);
+                        scene.remove(bq);
+                        bouquets.splice(bi, 1);
+                        continue;
+                    }
+                }
+                if (bq.position.y < -2) {
+                    scene.remove(bq);
+                    bouquets.splice(bi, 1);
+                }
+            }
+        }
+
+        controls.update();
+        renderer.render(scene, camera);
+
+        if (!tickedFirstFrame && frameCount === 2) {
+            tickedFirstFrame = true;
+            tickLoad();
+        }
+    }
+
+    window.addEventListener('resize', function () {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    animate();
+
+})();
+</script>
+
+</body>
+</html>
