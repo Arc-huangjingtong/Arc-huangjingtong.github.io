@@ -635,9 +635,6 @@
                     + encodeURIComponent(venueName)
                     + '&city=' + encodeURIComponent(city)
                     + '&src=wedding-invitation',
-                baidu: 'https://map.baidu.com/search/'
-                    + encodeURIComponent(venueName)
-                    + '@' + encodeURIComponent(city),
                 tencent: 'https://apis.map.qq.com/uri/v1/search?keyword='
                     + encodeURIComponent(venueName)
                     + '&region=' + encodeURIComponent(city)
@@ -645,6 +642,40 @@
                 apple: 'https://maps.apple.com/?q='
                     + encodeURIComponent(venueName + ',' + city)
             };
+
+            // 百度地图:移动端优先唤起 App,失败则 fallback 网页版
+            const baiduWebUrl = 'https://map.baidu.com/search/'
+                + encodeURIComponent(venueName)
+                + '@' + encodeURIComponent(city);
+            const baiduSchemeUrl = 'baidumap://map/place/search?query='
+                + encodeURIComponent(venueName)
+                + '&region=' + encodeURIComponent(city);
+
+            function openBaiduMap() {
+                const isMobile = /Android|iPhone|iPad|iPod|Mobile|HarmonyOS/i.test(navigator.userAgent);
+                if (!isMobile) {
+                    window.open(baiduWebUrl, '_blank', 'noopener');
+                    return;
+                }
+                // 移动端:尝试唤起百度地图 App
+                const startTime = Date.now();
+                const timer = setTimeout(function () {
+                    // 2秒后仍在页面说明未唤起 App,打开网页版
+                    if (!document.hidden && Date.now() - startTime < 2500) {
+                        window.open(baiduWebUrl, '_blank', 'noopener');
+                    }
+                }, 2000);
+                // 页面隐藏(唤起成功)时清除定时器
+                const onVisibility = function () {
+                    if (document.hidden) {
+                        clearTimeout(timer);
+                        document.removeEventListener('visibilitychange', onVisibility);
+                    }
+                };
+                document.addEventListener('visibilitychange', onVisibility);
+                // 唤起 App
+                window.location.href = baiduSchemeUrl;
+            }
 
             // 打开/关闭选择面板
             const mask = document.getElementById('nav-mask');
@@ -672,8 +703,12 @@
             document.querySelectorAll('.nav-opt').forEach(function (opt) {
                 opt.addEventListener('click', function () {
                     const key = this.dataset.map;
-                    const url = mapUrls[key];
-                    if (url) window.open(url, '_blank', 'noopener');
+                    if (key === 'baidu') {
+                        openBaiduMap();
+                    } else {
+                        const url = mapUrls[key];
+                        if (url) window.open(url, '_blank', 'noopener');
+                    }
                     closeSheet();
                 });
             });
