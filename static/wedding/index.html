@@ -523,7 +523,6 @@
         <svg class="icon-play" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
         <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
     </button>
-    <div id="music-tip" class="music-tip">点击播放音乐</div>
 
     <header class="ornament">
         <div class="ornament-rule">Wedding Invitation</div>
@@ -733,7 +732,6 @@
         (function () {
             var audio = document.getElementById('bgm');
             var btn = document.getElementById('music-btn');
-            var tip = document.getElementById('music-tip');
             var hasInteracted = false;
 
             function tryPlay() {
@@ -741,20 +739,16 @@
                 if (p && typeof p.then === 'function') {
                     p.then(function () {
                         btn.classList.add('playing');
-                        tip.classList.remove('show');
-                    }).catch(function () { showTip(); });
+                    }).catch(function () {
+                        // 浏览器阻止自动播放，等待用户第一次交互
+                    });
                 }
-            }
-            function showTip() {
-                tip.classList.add('show');
-                setTimeout(function () { tip.classList.remove('show'); }, 3000);
             }
             function togglePlay() {
                 if (audio.paused) {
                     audio.play().then(function () {
                         btn.classList.add('playing');
-                        tip.classList.remove('show');
-                    }).catch(function () { showTip(); });
+                    }).catch(function () {});
                 } else {
                     audio.pause();
                     btn.classList.remove('playing');
@@ -764,16 +758,19 @@
                 e.stopPropagation();
                 togglePlay();
             });
-            window.addEventListener('load', function () {
-                setTimeout(tryPlay, 300);
-            });
+            // 页面加载立即尝试自动播放
+            if (document.readyState === 'complete') {
+                tryPlay();
+            } else {
+                window.addEventListener('load', tryPlay);
+            }
+            // 用户第一次交互（点击/触摸/按键）时自动播放
             function onFirstInteract() {
                 if (hasInteracted) return;
                 hasInteracted = true;
                 if (audio.paused) {
                     audio.play().then(function () {
                         btn.classList.add('playing');
-                        tip.classList.remove('show');
                     }).catch(function () {});
                 }
                 document.removeEventListener('click', onFirstInteract);
